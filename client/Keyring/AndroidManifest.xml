@@ -4,6 +4,17 @@
       android:versionCode="1"
       android:versionName="1.0">
 	<uses-sdk android:minSdkVersion="10" android:targetSdkVersion="17"/>
+
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+
+	<!-- necessary for custom GCM -->
+	<permission android:name="com.noswap.keyring.permission.C2D_MESSAGE"
+		android:protectionLevel="signature" />
+	<uses-permission android:name="com.noswap.keyring.permission.C2D_MESSAGE" />
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name="MainActivity"
                   android:label="@string/app_name">
@@ -13,4 +24,15 @@
             </intent-filter>
         </activity>
     </application>
+
+	<receiver android:name="com.google.android.gcm.GCMBroadcastReceiver"
+		android:permission="com.google.android.c2dm.permission.SEND">
+		<intent-filter>
+			<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+			<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+			<category android:name="com.noswap.keyring" />
+		</intent-filter>
+	</receiver>
+	<service android:name=".GCMIntentService" />
+
 </manifest>
