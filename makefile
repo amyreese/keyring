@@ -1,3 +1,9 @@
 
-test-client:
-	cd client/Keyring && ant debug && adb install -r bin/Keyring-debug.apk
+test-client: client/Keyring/bin/Keyring-debug.apk
+	adb install -r $<
+
+client/Keyring/bin/Keyring-debug.apk: client/Keyring
+	cd $< && ant debug
+
+clean:
+	rm -rf client/Keyring/bin/
