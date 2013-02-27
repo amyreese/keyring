@@ -1,0 +1,42 @@
+{% extends "page.html" %}
+{% block content %}
+<div class="container-fluid">
+	<div class="span5 offset3">
+		<div class="well well-large">
+			<form class="form-horizontal" method="post" action="{{ request.path }}">
+				<input type="hidden" name="next" value="{{ next }}"/>
+				<div class="control-group">
+					<div class="controls">
+						<h2>Login</h2>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="username">Username</label>
+					<div class="controls">
+						<input type="text" id="username" name="username" placeholder="Username"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="password">Password</label>
+					<div class="controls">
+						<input type="password" id="password" name="password" placeholder="Password"/><br/>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-primary">Login</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block behavior %}
+<script>
+$(document).ready(function() {
+	$('input#username').focus();
+});
+</script>
+{% endblock %}

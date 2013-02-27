@@ -1,0 +1,142 @@
+{% extends "page.html" %}
+{% block content %}
+<div class="container-fluid">
+	<div class="span5 offset3">
+		<div class="well well-large">
+			<form class="form-horizontal" method="post" action="{{ request.path }}">
+				<input type="hidden" name="next" value="{{ next }}"/>
+				<div class="control-group">
+					<div class="controls">
+						<h2>Register</h2>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="username">Username</label>
+					<div class="controls">
+						<input type="text" id="username" name="username" placeholder="Username"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="email">Email</label>
+					<div class="controls">
+						<input type="email" id="email" name="email" placeholder="Email"/>
+						<input type="email" id="email2" name="email2" placeholder="Re-type email"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="password">Password</label>
+					<div class="controls">
+						<input type="password" id="password" name="password" placeholder="Password"/>
+						<input type="password" id="password2" name="password2" placeholder="Re-type password"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-primary">Register</button>
+						&nbsp;<button type="reset" class="btn">Clear</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block behavior %}
+<script>
+jQuery(document).ready(function($) {
+	var username_message = null;
+
+	$('input#username').change(function(event) {
+		var input = $(this);
+		var username = $(this).val();
+		var control_group = input.parents('div.control-group');
+		$.getJSON('/api/account/check_username', {'username': username}, function(data, status) {
+			if (username_message != null) {
+				$(username_message).remove();
+				username_message = null;
+			}
+			if (data) {
+				control_group.removeClass('success');
+				control_group.addClass('error');
+				username_message = $('<span class="help-inline">Username already taken</span>');
+			} else {
+				control_group.removeClass('error');
+				control_group.addClass('success');
+			}
+			if (username_message != null) {
+				input.after(username_message);
+			}
+		});
+	});
+
+	var email_message = null;
+
+	$('input#email,input#email2').change(function(event) {
+		if (email_message != null) {
+			$(email_message).remove();
+			email_message = null;
+		}
+
+		var input = $('input#email2');
+		var control_group = input.parents('div.control-group');
+
+		var email = $('input#email').val();
+		var email2 = input.val();
+
+		if (email == email2 && email != '') {
+			control_group.removeClass('error');
+			control_group.addClass('success');
+		}
+		else if (email == '' || email2 == '') {
+			control_group.removeClass('error');
+			control_group.removeClass('success');
+		}
+		else {
+			control_group.removeClass('success');
+			control_group.addClass('error');
+			email_message = $('<span class="help-inline">emails do not match</span>');
+		}
+
+		if (email_message != null) {
+			input.after(email_message);
+		}
+	});
+
+	var password_message = null;
+
+	$('input#password,input#password2').change(function(event) {
+		if (password_message != null) {
+			$(password_message).remove();
+			password_message = null;
+		}
+
+		var input = $('input#password2');
+		var control_group = input.parents('div.control-group');
+
+		var password = $('input#password').val();
+		var password2 = input.val();
+
+		if (password == password2 && password != '') {
+			control_group.removeClass('error');
+			control_group.addClass('success');
+		}
+		else if (password == '' || password2 == '') {
+			control_group.removeClass('error');
+			control_group.removeClass('success');
+		}
+		else {
+			control_group.removeClass('success');
+			control_group.addClass('error');
+			password_message = $('<span class="help-inline">Passwords do not match</span>');
+		}
+
+		if (password_message != null) {
+			input.after(password_message);
+		}
+	});
+
+	$('input#username').focus();
+});
+</script>
+{% endblock %}
