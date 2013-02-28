@@ -2,6 +2,9 @@
 # generate with `openssl rand -base64 32`
 SESSION_KEY = "BeTT4t0DIQfrfrf9vpJ1k+JwHWNpn+42+5kpB0UnGOI="
 
+# Google Cloud Messaging
+GCM_API_KEY = ""
+
 # Prefix for @api URLs
 API_ROOT = "/api"
 
@@ -14,3 +17,7 @@ DB_URI = "sqlite:///app.db"  # http://docs.sqlalchemy.org/en/rel_0_7/core/engine
 
 # Memcache options
 MC_URI = "127.0.0.1:11211"   # host:port
+
+# Celery task queue broker
+QUEUE_BROKER = "amqp://guest@localhost//"
+

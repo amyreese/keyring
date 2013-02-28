@@ -2,10 +2,15 @@ import logging
 from logging import Formatter, FileHandler, StreamHandler
 import os
 from os import path
+import sys
 
 from flask import Flask
 
-app_path = os.environ['APP_PATH']
+if 'APP_PATH' in os.environ:
+    app_path = os.environ['APP_PATH']
+else:
+    app_path = path.abspath(path.dirname(path.dirname(__file__)))
+
 app = Flask(__name__,
             static_folder=path.join(app_path, 'static'),
             template_folder=path.join(app_path, 'templates')
