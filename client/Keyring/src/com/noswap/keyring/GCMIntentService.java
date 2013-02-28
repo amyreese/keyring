@@ -2,6 +2,7 @@ package com.noswap.keyring;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
@@ -27,7 +28,15 @@ public class GCMIntentService extends GCMBaseIntentService
 	@Override
 	public void onMessage(Context context, Intent intent)
 	{
-		Log.v(TAG, "onMessage: ");
+		Bundle extras = intent.getExtras();
+
+		String keys = "";
+		for (String key : extras.keySet())
+		{
+			keys += ", " + key + ": " + extras.getString(key);
+		}
+
+		Log.v(TAG, "onMessage: " + keys);
 	}
 
 	@Override

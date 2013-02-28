@@ -26,7 +26,7 @@ public class MainActivity extends Activity
 			Log.v(TAG, "Registering");
 			GCMRegistrar.register(this, SENDER_ID);
 		} else {
-			Log.v(TAG, "Already registered");
+			Log.v(TAG, "Already registered: " + regId);
 		}
     }
 }
