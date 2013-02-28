@@ -5,7 +5,13 @@ keyring
 Server
 ------
 
+Requires:
+
+	Python 2.7
+	RabbitMQ (or other queue broker supported by Celery)
+	MySQL (or other database supported by SQLAlchemy)
+	
 Install the necessary python modules, ideally within a virtualenv:
 
-	pip install flask py-bcrypt pymysql python-gcm python-memcached sqlalchemy
+	pip install celery flask py-bcrypt pymysql python-gcm python-memcached sqlalchemy
 
