@@ -1,3 +1,5 @@
+import uuid
+
 import bcrypt
 from sqlalchemy import Column, Boolean, Integer, String
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
@@ -7,11 +9,16 @@ from core import app, db
 class User(db.base):
     __tablename__ = 'users'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String(64), primary_key=True)
     email = Column(String(128), index=True, unique=True, nullable=False)
     password = Column(String(64), nullable=False)
 
     def __init__(self, email=None, password=None):
+        self.id = None
+
+        if email:
+            self.id = uuid.uuid4().hex
+
         self.email = email
         self.password = None
 
