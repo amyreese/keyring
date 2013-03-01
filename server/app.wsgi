@@ -28,8 +28,8 @@ if __name__ == '__main__':
         print ">>> from core import app, db, mc"
         from core import app, db, mc
 
-        print ">>> from models import User"
-        from models import User
+        print ">>> from models import User, Device"
+        from models import User, Device
 
     # run integrated debug server
     if len(sys.argv) == 1:
