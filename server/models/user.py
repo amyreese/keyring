@@ -42,3 +42,12 @@ class User(db.base):
 
         except (MultipleResultsFound, NoResultFound) as e:
             return None
+
+    @classmethod
+    def load(cls, uid):
+        """Return a user object for the given user id, or None if not found."""
+        try:
+            user = db.query(User).filter(User.id == uid).one()
+            return user
+        except (MultipleResultsFound, NoResultFound) as e:
+            return None

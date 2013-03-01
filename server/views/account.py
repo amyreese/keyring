@@ -1,9 +1,6 @@
-import uuid
-from urllib import quote_plus
+from flask import flash, g, redirect, request
 
-from flask import flash, g, redirect, request, session
-
-from core import app, db, mc, mcdict, api, context, get, post, template
+from core import app, db, sessions, api, context, get, post, template
 from models import User
 
 with context('/account'):
@@ -35,14 +32,13 @@ with context('/account'):
             return redirect(request.path + '?next={}'.format(quote_plus(next)))
 
         else:
+            sessions.new()
             g.session['user'] = user
             return redirect(next)
 
     @get('/logout')
     def logout():
-        if g.user.id is not None:
-            del(g.session['user'])
-
+        sessions.destroy()
         return redirect('/')
 
     @get('/register', 'Register')
@@ -79,33 +75,3 @@ with context('/account'):
     @template('/account.html')
     def user_profile():
         return {'content': g.session['user'].id}
-
-@app.before_request
-def user_before_request():
-    """Pull user data from session if found, or use anonymous user otherwise."""
-    g.session = None
-
-    if 'session-key' in session:
-        session_key = session['session-key']
-        if mc.get(session_key) is not None:
-            g.session = mcdict(session_key)
-
-    if g.session is None:
-        session_key = 'session-' + uuid.uuid4().hex
-        g.session = mcdict(session_key)
-        session['session-key'] = session_key
-
-    if 'user' not in g.session:
-        g.session['user'] = User()
-    g.user = g.session['user']
-
-    if g.user.id == None:
-        g.account_links = [
-            {'href': '/account/register', 'title': 'Register'},
-            {'href': '/account/login', 'title': 'Login'},
-        ]
-    else:
-        g.account_links = [
-            {'href': '/account', 'title': g.user.email},
-            {'href': '/account/logout', 'title': 'Logout'},
-        ]
