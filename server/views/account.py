@@ -21,15 +21,17 @@ with context('/account'):
         next = '/'
         if 'next' in request.form:
             next = request.form['next']
+        else:
+            next = '/'
 
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
 
-        user = User.authenticate(username, password)
+        user = User.authenticate(email, password)
         app.logger.debug('authenticate() result: {}'.format(user))
 
         if user is None:
-            flash('Username or password incorrect.')
+            flash('Email or password incorrect.')
             return redirect(request.path + '?next={}'.format(quote_plus(next)))
 
         else:
@@ -50,22 +52,22 @@ with context('/account'):
 
     @post('/register')
     def register():
-        username = request.form['username']
+        email = request.form['email']
         email = request.form['email']
 
         password = request.form['password']
         password2 = request.form['password2']
 
-        users = db.query(User.id).filter(User.username == username).all()
+        users = db.query(User.id).filter(User.email == email).all()
         if len(users) > 0:
-            flash('Username already taken')
+            flash('Email already registered')
             return redirect(request.path)
 
         if password != password2:
             flash('Passwords do not match')
             return redirect(request.path)
 
-        user = User(username, email, password)
+        user = User(email, password)
         db.add(user)
         db.commit()
 
@@ -73,17 +75,10 @@ with context('/account'):
 
         return redirect('/')
 
-    @api('/check_username', methods=['GET'])
-    def check_username(method, username):
-        """Check for the existence of the given username.  Returns True if
-        username taken, or False if username available."""
-        users = db.query(User.id).filter(User.username == username).all()
-        return len(users) > 0
-
-@get('/user/<username>')
-@template('page.html')
-def user_profile(username):
-    return {'content': username}
+    @get('', 'Account')
+    @template('/account.html')
+    def user_profile():
+        return {'content': g.session['user'].id}
 
 @app.before_request
 def user_before_request():
@@ -111,7 +106,6 @@ def user_before_request():
         ]
     else:
         g.account_links = [
-            {'href': '/user/{}'.format(quote_plus(g.user.username)),
-             'title': g.user.username},
+            {'href': '/account', 'title': g.user.email},
             {'href': '/account/logout', 'title': 'Logout'},
         ]

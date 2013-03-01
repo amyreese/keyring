@@ -11,12 +11,6 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="username">Username</label>
-					<div class="controls">
-						<input type="text" id="username" name="username" placeholder="Username"/>
-					</div>
-				</div>
-				<div class="control-group">
 					<label class="control-label" for="email">Email</label>
 					<div class="controls">
 						<input type="email" id="email" name="email" placeholder="Email"/>
@@ -45,31 +39,6 @@
 {% block behavior %}
 <script>
 jQuery(document).ready(function($) {
-	var username_message = null;
-
-	$('input#username').change(function(event) {
-		var input = $(this);
-		var username = $(this).val();
-		var control_group = input.parents('div.control-group');
-		$.getJSON('/api/account/check_username', {'username': username}, function(data, status) {
-			if (username_message != null) {
-				$(username_message).remove();
-				username_message = null;
-			}
-			if (data) {
-				control_group.removeClass('success');
-				control_group.addClass('error');
-				username_message = $('<span class="help-inline">Username already taken</span>');
-			} else {
-				control_group.removeClass('error');
-				control_group.addClass('success');
-			}
-			if (username_message != null) {
-				input.after(username_message);
-			}
-		});
-	});
-
 	var email_message = null;
 
 	$('input#email,input#email2').change(function(event) {
@@ -95,7 +64,7 @@ jQuery(document).ready(function($) {
 		else {
 			control_group.removeClass('success');
 			control_group.addClass('error');
-			email_message = $('<span class="help-inline">emails do not match</span>');
+			email_message = $('<span class="help-inline">Emails do not match</span>');
 		}
 
 		if (email_message != null) {
@@ -136,7 +105,7 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	$('input#username').focus();
+	$('input#email').focus();
 });
 </script>
 {% endblock %}

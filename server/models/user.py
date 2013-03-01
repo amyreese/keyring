@@ -8,13 +8,10 @@ class User(db.base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    username = Column(String(32)) # TODO: this should really be a unique index
-    email = Column(String(128))
-    password = Column(String(64))
+    email = Column(String(128), index=True, unique=True, nullable=False)
+    password = Column(String(64), nullable=False)
 
-    def __init__(self, username='anonymous', email=None, password=None):
-        self.admin = False
-        self.username = username
+    def __init__(self, email=None, password=None):
         self.email = email
         self.password = None
 
@@ -22,23 +19,22 @@ class User(db.base):
             self.password = bcrypt.hashpw(password, bcrypt.gensalt())
 
     def __repr__(self):
-        return '<User({})>'.format(self.username)
+        return '<User({})>'.format(self.email)
 
     def _encode(self):
         return {
             'id': self.id,
             'anonymous': self.id == None,
-            'username': self.username,
             'email': self.email,
         }
 
     @classmethod
-    def authenticate(cls, username, password):
+    def authenticate(cls, email, password):
         """Authenticate the given credentials, and return the user object if
         authenticated, or None if authentication failed."""
 
         try:
-            user = db.query(User).filter(User.username == username).one()
+            user = db.query(User).filter(User.email == email).one()
             if bcrypt.hashpw(password, user.password) == user.password:
                 return user
             else:
