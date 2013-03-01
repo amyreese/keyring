@@ -15,3 +15,6 @@ Install the necessary python modules, ideally within a virtualenv:
 
 	pip install celery flask py-bcrypt pymysql python-gcm python-memcached sqlalchemy
 
+Optional modules, for development/debugging features:
+
+	pip install ipython

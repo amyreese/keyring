@@ -9,7 +9,7 @@ schema:
 	python2 app.wsgi schema
 
 shell:
-	python2 -i app.wsgi shell
+	ipython -i app.wsgi shell
 
 .PHONY:
 submodules:
