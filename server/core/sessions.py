@@ -26,6 +26,8 @@ def new():
 def user_before_request():
     """Pull user data from session if found, or use anonymous user otherwise."""
     g.session = None
+    g.user = None
+    g.device = None
 
     if 'session-key' in session:
         session_key = session['session-key']

@@ -5,6 +5,7 @@ import json
 from flask import abort, make_response, render_template, request
 
 from core import app, encoder
+from core.auth import authenticated_methods
 
 _context = []
 _titles = {}
@@ -81,6 +82,9 @@ def api(api_url, methods=['GET', 'POST', 'PUT'], format='application/json', spli
             docs = '    No documentation exists for this method.'
         else:
             docs = '\n'.join(['    ' + line for line in [line.strip() for line in f.__doc__.split('\n')]])
+
+        if f in authenticated_methods:
+            docs += '\n    Authentication required.'
 
         api_help[full_url] = "{0} ({1}) {2}\n{3}\n\n".format(full_url, args, str_methods, docs)
 

@@ -35,8 +35,17 @@ class Device(db.base):
         return {
             'id': self.id,
             'name': self.name,
-            'api_key': self.api_key,
         }
+
+    @classmethod
+    def authenticate(cls, api_key):
+        """Return a user and device object for the given api_key, if valid."""
+        try:
+            device = db.query(Device).filter(Device.api_key == api_key).one()
+            user = User.load(device.uid)
+            return user, device
+        except NoResultFound as e:
+            return None, None
 
     @classmethod
     def load(cls, did):
@@ -44,7 +53,7 @@ class Device(db.base):
         try:
             device = db.query(Device).filter(Device.id == did).one()
             return device
-        except (MultipleResultsFound, NoResultFound) as e:
+        except NoResultFound as e:
             return None
 
     @classmethod
@@ -52,6 +61,5 @@ class Device(db.base):
         """Returns a list of device objects for the given user id."""
         try:
             return db.query(Device).filter(Device.uid == uid).all()
-        except:
-            app.logger.exception()
+        except NoResultFound:
             return []
