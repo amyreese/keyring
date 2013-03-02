@@ -25,7 +25,6 @@ with context('/account'):
         password = request.form['password']
 
         user = User.authenticate(email, password)
-        app.logger.debug('authenticate() result: {}'.format(user))
 
         if user is None:
             flash('Email or password incorrect.')

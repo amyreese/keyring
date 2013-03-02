@@ -34,9 +34,6 @@ def authenticate(f):
                     g.device = device
                     authenticated = True
 
-            app.logger.debug('authorization: "%s"',
-                             request.headers['authorization'])
-
         if authenticated:
             return f(*args, **kwargs)
         abort(403)
