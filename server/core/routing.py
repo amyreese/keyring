@@ -67,16 +67,6 @@ def api(api_url, methods=['GET', 'POST', 'PUT'], format='application/json', spli
     def decorator(f):
         # Build API listing for any method with a docstring
         str_methods = ', '.join(sorted(methods))
-        args, varargs, keywords, defaults = inspect.getargspec(f)
-        args = args[1:]
-        if defaults is not None:
-            defaults = list(defaults)
-            m = len(args)
-            n = len(defaults)
-            args[m-n:m] = ["{0}={1}".format(a,d) for a,d in zip(args[m-n:], defaults)]
-
-        args = ', '.join(args)
-        str_methods = ', '.join(methods)
 
         if f.__doc__ is None:
             docs = '    No documentation exists for this method.'
@@ -86,7 +76,7 @@ def api(api_url, methods=['GET', 'POST', 'PUT'], format='application/json', spli
         if f in authenticated_methods:
             docs += '\n    Authentication required.'
 
-        api_help[full_url] = "{0} ({1}) {2}\n{3}\n\n".format(full_url, args, str_methods, docs)
+        api_help[full_url] = "{}  {}\n{}\n\n".format(full_url, str_methods, docs)
 
         @app.route(full_url, methods=methods)
         @wraps(f)
