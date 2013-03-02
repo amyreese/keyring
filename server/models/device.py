@@ -35,6 +35,8 @@ class Device(db.base):
         return {
             'id': self.id,
             'name': self.name,
+            'push_id': self.push_id,
+            'uri': '/api/device/' + self.id,
         }
 
     @classmethod
