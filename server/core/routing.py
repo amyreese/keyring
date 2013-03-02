@@ -94,7 +94,10 @@ def api(api_url, methods=['GET', 'POST', 'PUT'], format='application/json', spli
 
             elif request.method == 'POST' or request.method == 'PUT':
                 if request.content_type == 'application/json':
-                    payload = json.loads(request.data)
+                    try:
+                        payload = json.loads(request.data)
+                    except ValueError:
+                        abort(400)
 
                 elif request.content_type == 'application/x-www-form-urlencoded':
                     payload = {}
