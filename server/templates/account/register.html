@@ -1,37 +1,27 @@
 {% extends "page.html" %}
-{% block content %}
-<div class="container-fluid">
-	<div class="span5 offset3">
-		<div class="well well-large">
-			<form class="form-horizontal" method="post" action="{{ request.path }}">
-				<input type="hidden" name="next" value="{{ next }}"/>
-				<div class="control-group">
-					<div class="controls">
-						<h2>Register</h2>
-					</div>
+{% block wrapper %}
+<div class="row">
+	<div class="small-10 small-centered large-6 large-centered columns">
+		<h2>Register</h2>
+
+		<form method="post" action="{{ request.path }}">
+			<input type="hidden" name="next" value="{{ next }}"/>
+
+			<div class="row">
+				<div class="small-12 columns panel radius">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" placeholder="Email"/>
+					<input type="email" id="email2" name="email2" placeholder="Re-type email"/>
+
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" placeholder="Password"/>
+					<input type="password" id="password2" name="password2" placeholder="Re-type password"/>
+
+					<button type="submit" class="button secondary radius">Register</button>
 				</div>
-				<div class="control-group">
-					<label class="control-label" for="email">Email</label>
-					<div class="controls">
-						<input type="email" id="email" name="email" placeholder="Email"/>
-						<input type="email" id="email2" name="email2" placeholder="Re-type email"/>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="password">Password</label>
-					<div class="controls">
-						<input type="password" id="password" name="password" placeholder="Password"/>
-						<input type="password" id="password2" name="password2" placeholder="Re-type password"/>
-					</div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-						<button type="submit" class="btn btn-primary">Register</button>
-						&nbsp;<button type="reset" class="btn">Clear</button>
-					</div>
-				</div>
-			</form>
-		</div>
+			</div>
+		</form>
+
 	</div>
 </div>
 {% endblock %}
@@ -47,28 +37,28 @@ jQuery(document).ready(function($) {
 			email_message = null;
 		}
 
-		var input = $('input#email2');
-		var control_group = input.parents('div.control-group');
+		var input = $('input#email');
+		var input2 = $('input#email2');
 
-		var email = $('input#email').val();
-		var email2 = input.val();
+		var email = input.val();
+		var email2 = input2.val();
 
 		if (email == email2 && email != '') {
-			control_group.removeClass('error');
-			control_group.addClass('success');
+			input.removeClass('error');
+			input2.removeClass('error');
 		}
 		else if (email == '' || email2 == '') {
-			control_group.removeClass('error');
-			control_group.removeClass('success');
+			input.removeClass('error');
+			input2.removeClass('error');
 		}
 		else {
-			control_group.removeClass('success');
-			control_group.addClass('error');
-			email_message = $('<span class="help-inline">Emails do not match</span>');
+			input.addClass('error');
+			input2.addClass('error');
+			email_message = $('<small class="error">Emails do not match</small>');
 		}
 
 		if (email_message != null) {
-			input.after(email_message);
+			input2.after(email_message);
 		}
 	});
 
@@ -80,28 +70,28 @@ jQuery(document).ready(function($) {
 			password_message = null;
 		}
 
-		var input = $('input#password2');
-		var control_group = input.parents('div.control-group');
+		var input = $('input#password');
+		var input2 = $('input#password2');
 
-		var password = $('input#password').val();
-		var password2 = input.val();
+		var password = input.val();
+		var password2 = input2.val();
 
 		if (password == password2 && password != '') {
-			control_group.removeClass('error');
-			control_group.addClass('success');
+			input.removeClass('error');
+			input2.removeClass('error');
 		}
 		else if (password == '' || password2 == '') {
-			control_group.removeClass('error');
-			control_group.removeClass('success');
+			input.removeClass('error');
+			input2.removeClass('error');
 		}
 		else {
-			control_group.removeClass('success');
-			control_group.addClass('error');
-			password_message = $('<span class="help-inline">Passwords do not match</span>');
+			input.addClass('error');
+			input2.addClass('error');
+			password_message = $('<small class="error">Passwords do not match</small>');
 		}
 
 		if (password_message != null) {
-			input.after(password_message);
+			input2.after(password_message);
 		}
 	});
 

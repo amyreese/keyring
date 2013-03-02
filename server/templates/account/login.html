@@ -1,35 +1,25 @@
 {% extends "page.html" %}
-{% block content %}
-<div class="container-fluid">
-	<div class="span5 offset3">
-		<div class="well well-large">
-			<form class="form-horizontal" method="post" action="{{ request.path }}">
-				<input type="hidden" name="next" value="{{ next }}"/>
-				<div class="control-group">
-					<div class="controls">
-						<h2>Login</h2>
-					</div>
+{% block wrapper %}
+<div class="row">
+	<div class="small-10 small-centered large-6 large-centered columns">
+		<h2>Login</h2>
+
+		<form method="post" action="{{ request.path }}">
+			<input type="hidden" name="next" value="{{ next }}"/>
+
+			<div class="row">
+				<div class="small-12 columns panel radius">
+					<label for="email">Email</label>
+					<input type="text" id="email" name="email" placeholder="Email"/>
+
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" placeholder="Password"/>
+
+					<button type="submit" class="button secondary radius">Login</button>
 				</div>
-				<div class="control-group">
-					<label class="control-label" for="email">Email</label>
-					<div class="controls">
-						<input type="text" id="email" name="email"
-                        placeholder="Email"/>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="password">Password</label>
-					<div class="controls">
-						<input type="password" id="password" name="password" placeholder="Password"/><br/>
-					</div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-						<button type="submit" class="btn btn-primary">Login</button>
-					</div>
-				</div>
-			</form>
-		</div>
+			</div>
+		</form>
+
 	</div>
 </div>
 {% endblock %}
