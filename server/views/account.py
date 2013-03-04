@@ -48,18 +48,22 @@ with context('/account'):
     @post('/register')
     def register():
         email = request.form['email']
-        email = request.form['email']
+        email2 = request.form['email2']
+
+        if email != email2:
+            flash('Emails do not match')
+            return redirect(request.path)
 
         password = request.form['password']
         password2 = request.form['password2']
 
+        if password != password2:
+            flash('Passwords do not match')
+            return redirect(request.path)
+
         users = db.query(User.id).filter(User.email == email).all()
         if len(users) > 0:
             flash('Email already registered')
-            return redirect(request.path)
-
-        if password != password2:
-            flash('Passwords do not match')
             return redirect(request.path)
 
         user = User(email, password)
