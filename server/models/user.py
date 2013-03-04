@@ -31,7 +31,6 @@ class User(db.base):
     def _encode(self):
         return {
             'id': self.id,
-            'anonymous': self.id == None,
             'email': self.email,
         }
 
