@@ -74,6 +74,18 @@ with context('/account'):
 
         return redirect('/')
 
+    @api('/register', methods=['POST'], split_payload=True)
+    def api_user_register(method, email, password):
+        users = db.query(User.id).filter(User.email == email).all()
+        if len(users) > 0:
+            abort(400, 'Email already registered')
+
+        user = User(email, password)
+        db.add(user)
+        db.commit()
+
+        return user
+
     @get('', 'Account')
     @template('/account.html')
     def user_profile():
