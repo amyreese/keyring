@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.android.gcm.GCMRegistrar;
 
-public class MainActivity extends Activity
+public class MainActivity extends SherlockFragmentActivity
 {
 	public static final String TAG = "Keyring";
 	public static final String SENDER_ID = "192076224105";
@@ -24,6 +26,11 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setSubtitle("Something goes here");
+	}
+
+	public void doGCMStuff() {
 		GCMRegistrar.checkDevice(this);
 		GCMRegistrar.checkManifest(this);
 
