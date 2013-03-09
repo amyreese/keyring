@@ -1,5 +1,14 @@
-keyring
+Keyring
 =======
+
+Client
+------
+
+Requires:
+
+* Android SDK versions 2.3 (API 10), 4.0 (API 14), and 4.2.2 (API 17)
+* Google APIS, plus all Google extras
+* Apache Ant
 
 
 Server
@@ -7,9 +16,9 @@ Server
 
 Requires:
 
-	Python 2.7
-	RabbitMQ (or other queue broker supported by Celery)
-	MySQL (or other database supported by SQLAlchemy)
+* Python 2.7
+* RabbitMQ (or other queue broker supported by Celery)
+* MySQL (or other database supported by SQLAlchemy)
 	
 Install the necessary python modules, ideally within a virtualenv:
 
