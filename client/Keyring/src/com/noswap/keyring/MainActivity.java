@@ -21,7 +21,9 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -44,8 +46,24 @@ public class MainActivity extends SherlockFragmentActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setSubtitle("Something goes here");
 
-		Intent intent = new Intent(this, SettingsActivity.class);
-		startActivity(intent);
+		Intent upgradeIntent = versionUpgrade();
+		if (upgradeIntent != null) {
+			startActivity(upgradeIntent);
+		}
+	}
+
+	private Intent versionUpgrade() {
+		Intent intent = null;
+		SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+
+		if (prefs.contains("last_version")) {
+			// TODO: check if we need to upgrade settings or something
+		} else {
+			// TODO: inject register/login flow here
+			intent = new Intent(this, SettingsActivity.class);
+		}
+
+		return intent;
 	}
 
 	public void doGCMStuff() {
