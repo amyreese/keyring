@@ -61,7 +61,6 @@ public class MainActivity extends SherlockFragmentActivity {
 			// TODO: check if we need to upgrade settings or something
 		} else {
 			// TODO: inject register/login flow here
-			intent = new Intent(this, SettingsActivity.class);
 		}
 
 		return intent;
