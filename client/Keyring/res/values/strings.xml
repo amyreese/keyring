@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Keyring</string>
+
+	<string name="pref_category_account">Account</string>
+	<string name="pref_device_name">Device Name</string>
+	<string name="pref_logout">Logout</string>
 </resources>

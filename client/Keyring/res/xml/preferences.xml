@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory
+		android:key="pref_category_account"
+		android:title="@string/pref_category_account" >
+		<EditTextPreference
+			android:key="pref_device_name"
+			android:title="@string/pref_device_name"
+			android:defaultValue="" />
+		<Preference
+			android:title="@string/pref_logout">
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="http://noswap.com" />
+		</Preference>
+	</PreferenceCategory>
+</PreferenceScreen>

@@ -44,6 +44,9 @@ public class MainActivity extends SherlockFragmentActivity
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setSubtitle("Something goes here");
+
+		Intent intent = new Intent(this, SettingsActivity.class);
+		startActivity(intent);
 	}
 
 	public void doGCMStuff() {
