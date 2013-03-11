@@ -24,6 +24,7 @@ import android.preference.PreferenceScreen;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
 public class SettingsActivity extends SherlockPreferenceActivity
@@ -35,6 +36,9 @@ public class SettingsActivity extends SherlockPreferenceActivity
 	public void onCreate(Bundle savedState) {
 		super.onCreate(savedState);
 		addPreferencesFromResource(R.xml.preferences);
+
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(getString(R.string.prefs));
 
 		updateSummaries();
 	}
