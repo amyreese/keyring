@@ -31,6 +31,9 @@ import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuInflater;
 import com.google.android.gcm.GCMRegistrar;
 
 public class MainActivity extends SherlockFragmentActivity {
@@ -51,6 +54,25 @@ public class MainActivity extends SherlockFragmentActivity {
 		if (upgradeIntent != null) {
 			startActivity(upgradeIntent);
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.menu_main_settings) {
+			startActivity(new Intent(this, SettingsActivity.class));
+		} else if (id == R.id.menu_main_about) {
+			// TODO: About screen
+		} else {
+			Log.e(TAG, "Selected unknown menu item id " + id);
+		}
+		return true;
 	}
 
 	private Intent versionUpgrade() {

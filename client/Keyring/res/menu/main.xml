@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@+id/menu_main_settings"
+		android:icon="@drawable/dark_action_settings"
+		android:title="@string/prefs"
+		android:showAsAction="ifRoom" />
+	<item
+		android:id="@+id/menu_main_about"
+		android:icon="@drawable/dark_action_about"
+		android:title="@string/about"
+		android:showAsAction="ifRoom" />
+</menu>
+

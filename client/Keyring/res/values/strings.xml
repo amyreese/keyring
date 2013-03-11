@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Keyring</string>
 
+	<string name="about">About</string>
+
 	<string name="prefs">Preferences</string>
 	<string name="pref_file">com.noswap.keyring.preferences</string>
 	<string name="pref_category_account">Account Settings</string>
