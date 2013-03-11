@@ -45,7 +45,7 @@ public class MainActivity extends SherlockFragmentActivity {
         setContentView(R.layout.main);
 
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setSubtitle("Something goes here");
+		actionBar.setTitle(R.string.app_name);
 
 		Intent upgradeIntent = versionUpgrade();
 		if (upgradeIntent != null) {

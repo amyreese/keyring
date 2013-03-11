@@ -38,7 +38,7 @@ public class SettingsActivity extends SherlockPreferenceActivity
 		addPreferencesFromResource(R.xml.preferences);
 
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(getString(R.string.prefs));
+		actionBar.setTitle(R.string.prefs);
 
 		updateSummaries();
 	}
