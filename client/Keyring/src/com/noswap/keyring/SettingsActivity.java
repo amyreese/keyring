@@ -26,7 +26,8 @@ import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
-public class SettingsActivity extends SherlockPreferenceActivity {
+public class SettingsActivity extends SherlockPreferenceActivity
+		implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	public static final String TAG = "Keyring";
 
@@ -42,9 +43,11 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 	public boolean onPreferenceTreeClick(PreferenceScreen screen, Preference pref) {
 		boolean retval = super.onPreferenceTreeClick(screen, pref);
 		Log.v(TAG, "clicked on preference " + pref.getKey() + ", retval " + (retval ? "true" : "false"));
-
-		updateSummaries();
 		return true;
+	}
+
+	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+		updateSummaries();
 	}
 
 	private void updateSummaries() {
