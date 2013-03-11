@@ -54,7 +54,7 @@ public class MainActivity extends SherlockFragmentActivity {
 
 	private Intent versionUpgrade() {
 		Intent intent = null;
-		SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		if (prefs.contains("last_version")) {
 			// TODO: check if we need to upgrade settings or something
