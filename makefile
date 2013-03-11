@@ -15,4 +15,4 @@ client/Keyring/bin/Keyring-debug.apk: client/Keyring $(client_sources)
 	cd $< && ant debug
 
 clean:
-	rm -rf client/Keyring/bin/
+	rm -rf client/Keyring/bin/ client/Keyring/gen/
