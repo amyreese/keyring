@@ -3,7 +3,8 @@
     <string name="app_name">Keyring</string>
 
 	<string name="pref_file">com.noswap.keyring.preferences</string>
-	<string name="pref_category_account">Account</string>
-	<string name="pref_device_name">Device Name</string>
+	<string name="pref_category_account">Account Settings</string>
+	<string name="pref_device_name">Device name</string>
+	<string name="pref_email">Email address</string>
 	<string name="pref_logout">Logout</string>
 </resources>

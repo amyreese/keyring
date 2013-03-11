@@ -16,16 +16,42 @@
 
 package com.noswap.keyring;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceScreen;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
 public class SettingsActivity extends SherlockPreferenceActivity {
 
+	public static final String TAG = "Keyring";
+
 	@Override
 	public void onCreate(Bundle savedState) {
 		super.onCreate(savedState);
 		addPreferencesFromResource(R.xml.preferences);
+
+		updateSummaries();
+	}
+
+	@Override
+	public boolean onPreferenceTreeClick(PreferenceScreen screen, Preference pref) {
+		boolean retval = super.onPreferenceTreeClick(screen, pref);
+		Log.v(TAG, "clicked on preference " + pref.getKey() + ", retval " + (retval ? "true" : "false"));
+
+		updateSummaries();
+		return true;
+	}
+
+	private void updateSummaries() {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+		findPreference("email").setSummary(prefs.getString("email", "n/a"));
+		findPreference("device_name").setSummary(prefs.getString("device_name", "n/a"));
 	}
 
 }
