@@ -17,8 +17,12 @@
 	<uses-permission android:name="com.noswap.keyring.permission.C2D_MESSAGE" />
 	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-	<application android:label="@string/app_name" android:icon="@drawable/ic_launcher"
+	<application
+		android:name=".KeyringApplication"
+		android:label="@string/app_name"
+		android:icon="@drawable/ic_launcher"
 		android:theme="@style/Theme.Sherlock.Light.DarkActionBar">
+
 		<activity
 			android:name="MainActivity"
             android:label="@string/app_name">
