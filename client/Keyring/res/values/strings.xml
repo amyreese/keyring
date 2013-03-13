@@ -2,6 +2,17 @@
 <resources>
     <string name="app_name">Keyring</string>
 
+	<string name="login_title">Welcome to Keyring</string>
+	<string name="login_greeting">If you already have a Keyring account, please enter your email address and password.</string>
+	<string name="login_email">Email address</string>
+	<string name="login_password">Password</string>
+	<string name="login_button">Login</string>
+	<string name="login_forgotten">Forgot your password?</string>
+	<string name="login_new_account">You will need an account to use Keyring.  If you are new to Keyring, you will need to create a free account to continue.</string>
+	<string name="login_new_button">Create Account</string>
+
+	<string name="register_button">Create Account</string>
+
 	<string name="about">About</string>
 
 	<string name="prefs">Preferences</string>

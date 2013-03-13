@@ -29,7 +29,11 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -41,6 +45,8 @@ public class MainActivity extends SherlockFragmentActivity {
 	public static final String TAG = "Keyring";
 	public static final String SENDER_ID = "192076224105";
 
+	public boolean menuEnabled = true;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,15 +56,32 @@ public class MainActivity extends SherlockFragmentActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.app_name);
 
+		FragmentManager manager = getSupportFragmentManager();
+		Fragment fragment = manager.findFragmentById(R.id.main_container);
+
 		Intent upgradeIntent = versionUpgrade();
 		if (upgradeIntent != null) {
 			startActivity(upgradeIntent);
+		} else {
+			if (fragment == null) {
+				manager.beginTransaction()
+					.add(R.id.main_container, new LoginFragment())
+					.commit();
+			}
 		}
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.main, menu);
+		Log.v(TAG, "onCreateOptionsMenu() -- menuEnabled: " + (menuEnabled ? "true" : "false"));
+		if (menuEnabled) {
+			getSupportMenuInflater().inflate(R.menu.main, menu);
+		}
 		return true;
 	}
 
